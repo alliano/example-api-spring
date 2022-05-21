@@ -1,9 +1,15 @@
 package com.example.api.controllers;
+import javax.validation.Valid;
 
+import com.example.api.dto.ResponsData;
 import com.example.api.models.entities.Products;
 import com.example.api.services.ProductServices;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,8 +33,19 @@ public class ProductsControler {
      * @return
      */
     @PostMapping(path = "")
-    public Products create (@RequestBody Products products){
-        return productServices.save(products);
+    public ResponseEntity<ResponsData<Products>> create (@RequestBody @Valid Products products, Errors error){
+        ResponsData<Products> responsData = new ResponsData<>();
+        if (error.hasErrors()) {
+            for (ObjectError err : error.getAllErrors()) {
+                responsData.getMessagesList().add(err.getDefaultMessage());
+            }
+          responsData.setStatus(false);
+          responsData.setPaylooad(null);
+          return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responsData);
+        }
+        responsData.setStatus(true);
+        responsData.setPaylooad(productServices.save(products));
+        return ResponseEntity.status(HttpStatus.OK).body(responsData);
     }
 
     /**
@@ -47,8 +64,19 @@ public class ProductsControler {
     }
 
     @PutMapping(path = "")
-    public Products update(@RequestBody Products products){
-        return productServices.save(products);
+    public ResponseEntity<ResponsData<Products>> update(@RequestBody @Valid Products products, Errors error){
+        ResponsData<Products> responsData = new ResponsData<>();
+        if (error.hasErrors()) {
+            for (ObjectError err : error.getAllErrors()) {
+                responsData.getMessagesList().add(err.getDefaultMessage());
+            }
+          responsData.setStatus(false);
+          responsData.setPaylooad(null);
+          return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responsData);
+        }
+        responsData.setStatus(true);
+        responsData.setPaylooad(productServices.save(products));
+        return ResponseEntity.status(HttpStatus.OK).body(responsData);
     }
     @DeleteMapping(path = "")
     public void deleteById(@PathVariable("id") long id){

@@ -1,6 +1,7 @@
 package com.example.api.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.example.api.models.entities.Products;
 import com.example.api.models.repositories.ProductRepo;
@@ -27,6 +28,10 @@ public class ProductServices {
     }
 
     public Products findOne(long id) {
+        Optional<Products> product = repoProduct.findById(id);
+        if (product.isEmpty()){
+            return null;
+        }
         return repoProduct.findById(id).get();
     }
     public Iterable<Products> findAll(){

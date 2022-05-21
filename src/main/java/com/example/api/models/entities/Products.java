@@ -8,7 +8,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 
+
+/**
+ * @Id -> orm
+ * @GeneratedValue -> orm
+ * @Column -> orm
+ * @Id -> orm
+ * @NotEmpery -> validator
+ */
 @Entity
 @Table(name = "tbl_products")
 public class Products implements Serializable {
@@ -18,10 +28,17 @@ public class Products implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotEmpty(message = "name can't be null")
     @Column(length = 100)
     private String name;
+
+    @NotEmpty(message = "description can't be empty")
     @Column(length = 1000)
     private String description;
+
+    @Min(value = 1,message = "price can't be empty")
+    @Column(length = 100)
     private double price;
 
     public Products(Long id,String name,String description,double price){

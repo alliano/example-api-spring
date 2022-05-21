@@ -16,14 +16,20 @@ public class Userservice {
     private UsersRepositori userRepo;
     
     public Users saveUsers(Users users){
+        Users user = users;
+       if (user.getName() == "" || user.getEmail() == "" || user.getPassword() == ""){
+        return null;
+       }else{
         return userRepo.save(users);
+       }
+        
     }
     public Iterable<Users> findAllUsers(){
         return userRepo.findAll();
     }
     public Users findOneUser(long id){
         Optional<Users> user = userRepo.findById(id);
-        if (user.isPresent()) {
+        if (user.isEmpty()) {
             return null;
         }
         return userRepo.findById(id).get();

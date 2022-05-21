@@ -1,9 +1,16 @@
 package com.example.api.controllers;
 
+import javax.validation.Valid;
+
+import com.example.api.dto.ResponseDataUser;
 import com.example.api.models.entities.Users;
 import com.example.api.services.Userservice;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,13 +23,25 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/user")
 public class UsersController {
-    
+
+   
     @Autowired
     private Userservice userservice;
 
     @PostMapping(path = "")
-    public Users createrUsers(@RequestBody Users user){
-        return userservice.saveUsers(user);
+    public ResponseEntity<ResponseDataUser<Users>> createrUsers(@RequestBody @Valid Users user, Errors errors){
+        ResponseDataUser<Users> responseDataUser = new ResponseDataUser<>();
+        if (errors.hasErrors()) {
+            for (ObjectError error : errors.getAllErrors()) {
+                responseDataUser.getMessages().add(error.getDefaultMessage());
+            }
+            responseDataUser.setStatus(false);
+            responseDataUser.setPayload(null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseDataUser);
+        }
+        responseDataUser.setStatus(true);
+        responseDataUser.setPayload(userservice.saveUsers(user));
+        return ResponseEntity.status(HttpStatus.OK).body(responseDataUser);
     }
     @GetMapping(path = "")
     public Iterable<Users> findAllusers(){
@@ -33,8 +52,19 @@ public class UsersController {
         return userservice.findOneUser(id);
     }
     @PutMapping(path = "")
-    public Users updateUser (@RequestBody Users users){
-        return userservice.saveUsers(users);
+    public ResponseEntity<ResponseDataUser<Users>> updateUser(@RequestBody @Valid Users users, Errors error){
+        ResponseDataUser<Users> responsedata = new ResponseDataUser<>();
+        if (error.hasErrors()) {
+            for (ObjectError err : error.getAllErrors()) {
+                responsedata.getMessages().add(err.getDefaultMessage());
+            }
+            responsedata.setStatus(false);
+            responsedata.setPayload(null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responsedata);
+        }
+        responsedata.setStatus(true);
+        responsedata.setPayload(userservice.saveUsers(users));
+        return ResponseEntity.status(HttpStatus.OK).body(responsedata);
     }
     @DeleteMapping(path = "/{id}")
     public String destroyUser(@PathVariable("id") long id){
