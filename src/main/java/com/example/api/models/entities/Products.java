@@ -17,14 +17,25 @@ import javax.validation.constraints.NotEmpty;
  * @GeneratedValue -> orm
  * @Column -> orm
  * @Id -> orm
+ * @Table() -> ini untuk menamai entity 
  * @NotEmpery -> validator
+ * class ini adalahg class untuk membuat entity database atau tabel didalam database kita
+ * meng inplements abstarc interface serializable untuk mengubah class ini menjadi 
+ * byte stream agar dapat dikirim melalui network karna rest api mengirim dan menerima data melalui 
+ * network
  */
 @Entity
 @Table(name = "tbl_products")
 public class Products implements Serializable {
 
+    
     private static final long serialVersionUID = 1L;
 
+    /**
+     * annotasi @Id untuk menjadikan field ini menjadi primary key
+     * anotasi @GenerateValue(strategy = GenerationType.IDENTITY) agar primary key
+     * ini auto increment
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -19,6 +19,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * kita harus menganotasi class nya sebagai @ReastController
+ * dan mengelola path url nya dengan cara menggunakan @RequestMapping(path = "api/product")
+ * ini maksudnya class ini akan berfugsi saat url api/products di panggil
+ */
+
 @RestController
 @RequestMapping(path = "/api/products")
 public class ProductsControler {
