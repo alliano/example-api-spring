@@ -24,6 +24,10 @@ import org.springframework.web.bind.annotation.RestController;
  * kita harus menganotasi class nya sebagai @ReastController
  * dan mengelola path url nya dengan cara menggunakan @RequestMapping(path = "api/product")
  * ini maksudnya class ini akan berfugsi saat url api/products di panggil
+ * 
+ * @RequestMapping dan @postMapping dan @GetMapping itu sebenar nya sama 
+ * yang membedakan adalah @PostMapping dan @GetMapping itu mutlak methodnya
+ * tetapi @RequestMapping itu kita bsia set methodnya
  */
 
 @RestController
@@ -71,6 +75,13 @@ public class ProductsControler {
     }
 
 
+    /**
+     * untuk memparsing id kita bisa memberi parameter didalam path nya
+     * untuk contoh ini saya menggunakan @GetMapping(path = "{id}") dan method tersebut 
+     * harus menagkap parameter yang di kirimklan dengan menggunkan @pathVariable("id")''
+     * @param id
+     * @return
+     */
     @GetMapping(path = "/{id}")
     public Products findById(@PathVariable("id") long id){
         return productServices.findOne(id);
