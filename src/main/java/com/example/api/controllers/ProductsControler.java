@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 /**
  * kita harus menganotasi class nya sebagai @ReastController
  * dan mengelola path url nya dengan cara menggunakan @RequestMapping(path = "api/product")
@@ -29,15 +30,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "/api/products")
 public class ProductsControler {
     
+    /**
+     * ini akan kita gunnakan untuk memanggil service dan untuk melakukan proses crud
+     */
     @Autowired
     private ProductServices productServices;
 
     /**
      * @RequestBody == data yang kita 
      * ambil nanti dari request body clien
+     * data data akan di kirim melalui request body
      * @param products
      * @return
-     */
+     * 
+     * 
+     */  
     @PostMapping(path = "")
     public ResponseEntity<ResponsData<Products>> create (@RequestBody @Valid Products products, Errors error){
         ResponsData<Products> responsData = new ResponsData<>();

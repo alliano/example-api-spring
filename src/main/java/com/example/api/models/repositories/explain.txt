@@ -1,0 +1,2 @@
+folder repository adalah layer yang palig dekat dengan entity 
+nantinya kita kan mengcostom query atau membuat query itu di dalam repository

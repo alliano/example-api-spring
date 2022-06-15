@@ -1,0 +1,9 @@
+flow dari mvc springboot
+
+controller -> sercvice -> repository
+
+controller adalah folder yang menyimpan class2 untuk
+ber iteregasi dengan frontendnya melalui path yang tellah di mapping
+
+service untuk menyimpan class yang kelas tersebut menjalankan bisnis logic nya atau 
+suatu aksi tertentu seperti meng encription password dll

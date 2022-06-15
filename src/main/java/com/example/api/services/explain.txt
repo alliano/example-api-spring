@@ -1,0 +1,1 @@
+folder ini akan berisi logic dari applikasi ini contohnya yaitu encription password dll

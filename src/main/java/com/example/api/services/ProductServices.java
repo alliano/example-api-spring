@@ -76,7 +76,7 @@ public class ProductServices {
     }
     /**
      * method ini untuk find data berdasarkan nama data
-     * method findByNameContains() adalah method milik CrudRepository
+     * method findByNameContains() adalah method milik ProductRepo
      * @param name
      * @return
      */

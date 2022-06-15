@@ -1,0 +1,8 @@
+dto adalah data trafer object folder ini nantinya kaan berisikan class untuk menjebatani
+tanfer data antara inputan user ke database 
+dto biasanya terpakai saat kasus register login dll yang berintraksi dengan database
+
+contoh resgister : 
+nantinya kan user hanya menginputkan nama email password  namaun untuk field didalam database yang seperti 
+create_at id role atau is_admin maka itu secara default akan di isikan oleh system nah...dari situ 
+kita membutuhkan class dari dto untuk menyaring inputan user atau sebagai penyaring data user 
