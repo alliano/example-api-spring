@@ -5,4 +5,6 @@ dto biasanya terpakai saat kasus register login dll yang berintraksi dengan data
 contoh resgister : 
 nantinya kan user hanya menginputkan nama email password  namaun untuk field didalam database yang seperti 
 create_at id role atau is_admin maka itu secara default akan di isikan oleh system nah...dari situ 
-kita membutuhkan class dari dto untuk menyaring inputan user atau sebagai penyaring data user 
+kita membutuhkan class dari dto untuk menyaring inputan user atau sebagai penyaring data user
+
+kelas ini jga nanti nya digunakan untuk validasi inputan user/client 
