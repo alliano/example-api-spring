@@ -14,7 +14,7 @@ import javax.validation.constraints.NotEmpty;
 @Table(name = "users_table")
 public class Users implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 5L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

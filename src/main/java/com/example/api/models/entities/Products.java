@@ -1,15 +1,21 @@
 package com.example.api.models.entities;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+
 
 
 /**
@@ -52,13 +58,46 @@ public class Products implements Serializable {
     @Column(length = 100)
     private double price;
 
+    @ManyToOne()
+    private Category category;
+
+    /**
+     * untuk relasi many to many tentunay nanti kita akan membuat
+     * tabel intermediate yang menyimpan key dari dua table 
+     * untuk membuat table intermediate kita bisa menggunakan 
+     * anotasi @joinTable() dan di dalam join table kita akan memberi
+     * nama tabel intermediate dengan parameter( name = "" ) 
+     * setelah itu untuk membuat field didalam table intermediate
+     * kita bisa menambahkan parameter (joinColumns = ) dan kita 
+     * harus menambahkan annotasi @joinColumns(name = "nama field")
+     * inverstJoinColumns = @joinColumns(name = "nama field")
+     * 
+     * Contoh seperti di bawah ini : 
+     */
+
+    @ManyToMany
+    @JoinTable(
+        name = "product_suplier",
+        joinColumns = @JoinColumn(name = "product_id"),
+        inverseJoinColumns = @JoinColumn(name = "suplier_id"))
+    private Set<Suplier> suplier;
+
     public Products(Long id,String name,String description,double price){
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
     }
+
     public Products(){}
+ 
+    public void setSuplier(Set<Suplier> suplier) {
+       this.suplier = suplier;
+    }
+ 
+    public Set<Suplier> getSuplier() {
+       return suplier;
+    }
     
     public void setId(Long id) {
         this.id = id;
@@ -83,6 +122,13 @@ public class Products implements Serializable {
     }
     public double getPrice() {
         return price;
+    }
+
+    public void setCategory(Category category) {
+       this.category = category;
+    }
+    public Category getCategory() {
+       return this.category;
     }
 
     @Override

@@ -116,7 +116,7 @@ public class StudentsController {
       ResponseSearchStudent status = new ResponseSearchStudent();
       List<Students> result = StudentService.findByName(name);
       if (result.size() == 0){
-         status.setMessage(name + " data not found");
+         status.setMessage(name + " data doesn't exist");
          status.setStatus(false);
          status.setPayload(null);
          return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(status);
