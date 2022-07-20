@@ -1,9 +1,9 @@
-package com.example.api.services;
+package com.example.api.services.coba;
 
 import java.util.List;
 import java.util.Optional;
 
-import com.example.api.models.entities.Users;
+import com.example.api.models.entities.tryning.Users;
 import com.example.api.models.repositories.UsersRepositori;
 
 import org.springframework.beans.factory.annotation.Autowired;

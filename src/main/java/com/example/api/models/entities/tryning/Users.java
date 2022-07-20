@@ -1,4 +1,4 @@
-package com.example.api.models.entities;
+package com.example.api.models.entities.tryning;
 
 import java.io.Serializable;
 
@@ -33,13 +33,6 @@ public class Users implements Serializable {
     @NotEmpty(message = "password can't be empty")
     private String password;
 
-    public Users(long id, String name, String email, boolean isAdmin, String password) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.isAdmin = isAdmin;
-        this.password = password;
-    }
     public Users(){}
     
     public long getId() {

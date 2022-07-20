@@ -3,6 +3,7 @@ package com.example.api.models.entities;
 import java.io.Serializable;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,6 +16,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+
+// import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+// import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
 
@@ -32,6 +37,7 @@ import javax.validation.constraints.NotEmpty;
  */
 @Entity
 @Table(name = "tbl_products")
+// @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id") // => agar tidak infinity loop relation dan menamoilkan semua relasi
 public class Products implements Serializable {
 
     
@@ -58,7 +64,7 @@ public class Products implements Serializable {
     @Column(length = 100)
     private double price;
 
-    @ManyToOne()
+    @ManyToOne(cascade = {CascadeType.ALL})
     private Category category;
 
     /**
@@ -80,13 +86,15 @@ public class Products implements Serializable {
         name = "product_suplier",
         joinColumns = @JoinColumn(name = "product_id"),
         inverseJoinColumns = @JoinColumn(name = "suplier_id"))
+        @JsonManagedReference // => agar annati tidak terjadi infinity loop relation saat mengquery subuah data
     private Set<Suplier> suplier;
 
-    public Products(Long id,String name,String description,double price){
+    public Products(Long id,String name,String description,double price,Set<Suplier> suplier){
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
+        this.suplier = suplier;
     }
 
     public Products(){}

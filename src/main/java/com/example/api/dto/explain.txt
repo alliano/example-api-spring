@@ -8,3 +8,6 @@ create_at id role atau is_admin maka itu secara default akan di isikan oleh syst
 kita membutuhkan class dari dto untuk menyaring inputan user atau sebagai penyaring data user
 
 kelas ini jga nanti nya digunakan untuk validasi inputan user/client 
+
+
+untuk meng costom respon saat kita insert update delete

@@ -1,4 +1,4 @@
-package com.example.api.services;
+package com.example.api.services.coba;
 
 
 import java.util.Optional;
@@ -6,8 +6,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.api.models.entities.Students;
-import com.example.api.models.repositories.StudentsRepository;
+import com.example.api.models.entities.tryning.Students;
+import com.example.api.models.repositories.coba.StudentsRepository;
+
 import java.util.List;
 
 

@@ -1,10 +1,10 @@
-package com.example.api.controllers;
+package com.example.api.controllers.coba;
 
 import javax.validation.Valid;
 
-import com.example.api.dto.ResponseDataUser;
-import com.example.api.models.entities.Users;
-import com.example.api.services.Userservice;
+import com.example.api.dto.coba.ResponseDataUser;
+import com.example.api.models.entities.tryning.Users;
+import com.example.api.services.coba.Userservice;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

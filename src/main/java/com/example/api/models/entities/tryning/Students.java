@@ -1,4 +1,4 @@
-package com.example.api.models.entities;
+package com.example.api.models.entities.tryning;
 
 import java.io.Serializable;
 

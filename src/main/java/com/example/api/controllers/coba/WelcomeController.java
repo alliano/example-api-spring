@@ -1,4 +1,4 @@
-package com.example.api.controllers;
+package com.example.api.controllers.coba;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

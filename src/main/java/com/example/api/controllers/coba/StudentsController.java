@@ -1,4 +1,4 @@
-package com.example.api.controllers;
+package com.example.api.controllers.coba;
 
 
 import java.util.List;
@@ -19,10 +19,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.api.dto.ResponDataStudent;
-import com.example.api.dto.ResponseSearchStudent;
-import com.example.api.models.entities.Students;
-import com.example.api.services.StudentsService;
+import com.example.api.dto.coba.ResponDataStudent;
+import com.example.api.dto.coba.ResponseSearchStudent;
+import com.example.api.models.entities.tryning.Students;
+import com.example.api.services.coba.StudentsService;
 
 
 

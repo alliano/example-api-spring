@@ -1,4 +1,4 @@
-package com.example.api.dto;
+package com.example.api.dto.coba;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,11 +1,13 @@
 package com.example.api.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import com.example.api.models.entities.Products;
+import com.example.api.models.entities.Suplier;
 import com.example.api.models.repositories.ProductRepo;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +30,9 @@ public class ProductServices {
      */
     @Autowired
     private ProductRepo repoProduct;
+
+    @Autowired
+    private SuplierService supplierService;
 
     public Products save (Products products){
         /**
@@ -56,7 +61,10 @@ public class ProductServices {
         return repoProduct.findById(id).get();
     }
 
-    /**
+    /** @GetMapping(path = "/search/category/{categoryId}")
+    public List<Products> findProductByCategoryId(@RequestBody @PathVariable("categoryId") long categoryId){
+        return repoProduct.findProductByCategoryId(categoryId);
+    }
      * ini adalah method untuk find all data didalam database
      * method findAll() adalah method dari class CrudRepository
      * @return
@@ -72,7 +80,7 @@ public class ProductServices {
      */
     public String removeOne(long id) {
         repoProduct.deleteById(id);
-        return "produck has deleted";
+        return "produck has dele ";
     }
     /**
      * method ini untuk find data berdasarkan nama data
@@ -83,4 +91,31 @@ public class ProductServices {
     public List<Products> findByName(String name){
         return repoProduct.findByNameContains(name);
     }
+
+    public void addSuplier(Suplier suplier,long procuctId){
+        Products product = findOne(procuctId);
+        if(product == null) throw new RuntimeException("id "+ product + "not found");
+        else
+        product.getSuplier().add(suplier);
+        save(product);
+    }
+
+    public Products findProductByName(String name) {
+        return repoProduct.findProductByName(name);
+    }
+
+    public Set<Products> findProductByNameLike(String name){
+        return repoProduct.findByNameLike("%"+name+"%");
+    }
+
+   public List<Products> findProductBycategoryId(long categoryId){
+       return repoProduct.findProductByCategoryId(categoryId);
+   }
+
+   public List<Products> findProductBySuplierId(long id){
+    Suplier suplier = supplierService.findById(id);
+    if(suplier == null) return new ArrayList<Products>();
+    else
+    return repoProduct.findProductBySupplier(suplier);
+   }
 }

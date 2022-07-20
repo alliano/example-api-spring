@@ -1,8 +1,8 @@
-package com.example.api.dto;
+package com.example.api.dto.coba;
 
 import java.util.List;
 
-import com.example.api.models.entities.Students;
+import com.example.api.models.entities.tryning.Students;
 
 public class ResponseSearchStudent {
    private String message;
