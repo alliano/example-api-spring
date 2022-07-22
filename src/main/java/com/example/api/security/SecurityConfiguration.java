@@ -32,11 +32,16 @@ public class SecurityConfiguration {
 
    @Bean(value = "filterChain")
    public SecurityFilterChain filterChain(HttpSecurity http)throws Exception{
-
+      //ini kita disable dulu csrf nya 
       http.csrf().disable()
+      //ini untuk request post ke endpoin /api/users/register diizinkan tampa login
       .authorizeRequests().antMatchers(HttpMethod.POST, "/api/users/register").permitAll()
-      .and().authorizeRequests().anyRequest().authenticated()
-      .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authenticationProvider(daoAuthenticationProvider());
+      //selain dari request post /api/users/register maka akan di autentikasi dengan http basic
+      .anyRequest().fullyAuthenticated().and().httpBasic()
+      //ini untuk sessionManagement nya menggunkan SessionCreationPolice.STATLES
+      .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+      //ini unutk memperkenalkan userservice dan password encoder kita ke spring security nya
+      .and().authenticationProvider(daoAuthenticationProvider());
       return http.build();
    }
 
@@ -66,63 +71,4 @@ public class SecurityConfiguration {
          }
       };
    }
-   
-
-
-
-   // @Bean(name = "filterChain")
-   // public SecurityFilterChain filterChain(HttpSecurity security)throws Exception{
-   //       security.authorizeRequests()
-   //       .antMatchers("/api/users/register").permitAll()
-   //       .and().authorizeRequests().anyRequest().authenticated();
-   //       return security.build();
-   //    }
-      
-   //    @Bean(name = "webSecureCostum")
-   //    public WebSecurityCustomizer webSecurityCustomizer(){
-   //       return (web) -> web.ignoring().antMatchers("/images/**","/js/**","/webjars/**");
-   //    }
-   
-   // http.authorizeRequests()
-   // .antMatchers(HttpMethod.POST, "/api/users/register").permitAll()
-   // .and().csrf().disable().authorizeRequests().anyRequest().authenticated().and()
-   // .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-   // .and().authenticationProvider(daoAuthenticationProvider());
-   // return http.build();
-      
-      
-      // @Autowired
-      // private AppUserService userService;
-      
-      // @Autowired
-      // private BCryptPasswordEncoder bCryptPasswordEncoder;
-      
-      // @Bean(name = "filterChain")
-      // public SecurityFilterChain flterChain(HttpSecurity httpSecurity)throws Exception{
-         //    httpSecurity.authorizeHttpRequests(auth -> {
-            //       auth.antMatchers(HttpMethod.POST, "/api/users/register")
-            //       .permitAll().anyRequest().authenticated();
-            //    }).httpBasic();
-            //    return httpSecurity.build();
-            // }
-            
-            // public void config(AuthenticationManagerBuilder auth) throws Exception{
-               //    auth.authenticationProvider(daoAuthenticationProvider());
-   // }
-   
-   // @Bean(name = "daoAuthProv")
-   // public DaoAuthenticationProvider daoAuthenticationProvider(){
-   //    DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-   //    provider.setPasswordEncoder(this.bCryptPasswordEncoder);
-   //    provider.setUserDetailsService(this.userService);
-   //    return provider;
-   // }
-   // @Bean(name = "filterChain")
-   // public SecurityWebFilterChain securityWebFilterChain(final ServerHttpSecurity http){
-   //   http.authorizeExchange().pathMatchers("/js/**","/css/**","/webjars/**").permitAll()
-   //   .and().authorizeExchange()
-   //   .pathMatchers(HttpMethod.POST, "/api/users/register").permitAll()
-   //   .anyExchange().authenticated().and().httpBasic().and().formLogin().and().logout();
-   //   return http.build();
-   // }
 }
