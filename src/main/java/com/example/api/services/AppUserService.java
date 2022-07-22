@@ -48,6 +48,10 @@ public class AppUserService implements UserDetailsService{
          }else{
             try {
                user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+               System.out.println(user.getEmail());
+               System.out.println(user.getPassword());
+               System.out.println(user.getFullName());
+               System.out.println(user.getAppUserRole());
                return appUserRepository.save(user);
             } catch (Exception e) {
                System.out.println(e.getMessage());
