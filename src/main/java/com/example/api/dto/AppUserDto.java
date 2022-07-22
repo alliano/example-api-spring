@@ -4,6 +4,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 
+
 public class AppUserDto {
    
    @NotEmpty(message = "full name can't be empty!")
@@ -18,6 +19,8 @@ public class AppUserDto {
 
    @NotEmpty(message = "role can't be empety!")
    private String appUserRole;
+
+   
 
    public String getFullName() {
       return fullName;

@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.CrossOrigin;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.api.dto.AppUserDto;
 import com.example.api.dto.ResponsData;
 import com.example.api.models.entities.AppUser;
+import com.example.api.models.entities.AppUserRole;
 import com.example.api.services.AppUserService;
 
 import eye2web.modelmapper.ModelMapper;
@@ -24,12 +25,13 @@ import eye2web.modelmapper.ModelMapper;
 @RestController
 @RequestMapping(path = "/api/users")
 public class AppUserController {
+
    @Autowired
    private AppUserService appUserService;
+
    @Autowired
    private ModelMapper modelMapper;
 
-   @CrossOrigin(origins = "http://localhost:8080")
    @PostMapping(path = "/register")
    public ResponseEntity<ResponsData<AppUser>> register(@RequestBody @Valid AppUserDto userDto, Errors errors){
 
@@ -45,6 +47,14 @@ public class AppUserController {
          responsHttp.setStatus(true);
          responsHttp.getMessagesList().add("success registered");
          AppUser user = modelMapper.map(userDto, AppUser.class);
+         if(userDto.getAppUserRole().equalsIgnoreCase("ADMIN")){
+            user.setAppUserRole(AppUserRole.ADMIN);
+         }else if(userDto.getAppUserRole().equalsIgnoreCase("USER") || 
+         !userDto.getAppUserRole().equalsIgnoreCase("USER") || 
+         !userDto.getAppUserRole().equalsIgnoreCase("ADMIN") ||
+         userDto.getAppUserRole().equalsIgnoreCase(null)){
+            user.setAppUserRole(AppUserRole.USER);
+         }
          responsHttp.setPaylooad(appUserService.registerAppUser(user));
          return ResponseEntity.status(HttpStatus.OK).body(responsHttp);
       }

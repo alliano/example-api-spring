@@ -31,7 +31,7 @@ import com.example.api.services.CategoryService;
 import eye2web.modelmapper.ModelMapper;
 
 @RestController
-@RequestMapping(path = "api/category")
+@RequestMapping(path = "/api/category")
 public class CategoryController {
    
    @Autowired
