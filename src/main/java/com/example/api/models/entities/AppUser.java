@@ -17,6 +17,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+/**
+ * disini kita implementasi userdetails untuk mengintregasikan springBoot dengan springSecurity 
+ * userDetails jga dia meng implement Serializable
+ * jadi kita tidak perlu implement disini
+ */
 @Entity
 @Table(name = "appUser")
 public class AppUser implements UserDetails {
@@ -34,6 +39,8 @@ public class AppUser implements UserDetails {
 
    @Column(nullable = false,length = 255)
    private String password;
+
+   //ini untuk meng convert firld menjadi bertipe enum
 
    @Enumerated(EnumType.STRING)
    private AppUserRole appUserRole;
@@ -95,22 +102,22 @@ public class AppUser implements UserDetails {
 
    @Override
    public boolean isAccountNonExpired() {
-      return true;
+      return false;
    }
 
    @Override
    public boolean isAccountNonLocked() {
-      return true;
+      return false;
    }
 
    @Override
    public boolean isCredentialsNonExpired() {
-      return true;
+      return false;
    }
 
    @Override
    public boolean isEnabled() {
-      return true;
+      return false;
    }
 
    

@@ -46,9 +46,13 @@ public class AppUserService implements UserDetailsService{
          if (user.getPassword().isEmpty() || user.getPassword() == null){
             throw new RuntimeErrorException(null, "pasword can't encription because password is empty!");
          }else{
-            String encodedpassword = bCryptPasswordEncoder.encode(user.getPassword());
-            user.setPassword(encodedpassword);
-            return appUserRepository.save(user);
+            try {
+               user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+               return appUserRepository.save(user);
+            } catch (Exception e) {
+               System.out.println(e.getMessage());
+               return null;
+            }
          }
       }
    }

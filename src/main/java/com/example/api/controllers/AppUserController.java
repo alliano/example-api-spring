@@ -7,7 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,7 +19,7 @@ import com.example.api.models.entities.AppUser;
 import com.example.api.services.AppUserService;
 
 import eye2web.modelmapper.ModelMapper;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+
 
 @RestController
 @RequestMapping(path = "/api/users")
@@ -26,6 +28,8 @@ public class AppUserController {
    private AppUserService appUserService;
    @Autowired
    private ModelMapper modelMapper;
+
+   @CrossOrigin(origins = "http://localhost:8080")
    @PostMapping(path = "/register")
    public ResponseEntity<ResponsData<AppUser>> register(@RequestBody @Valid AppUserDto userDto, Errors errors){
 
