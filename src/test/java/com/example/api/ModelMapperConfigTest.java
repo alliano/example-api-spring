@@ -17,6 +17,7 @@ public class ModelMapperConfigTest {
    @BeforeEach
    public void setUp(){
       this.context = new AnnotationConfigApplicationContext(ModelmapperConfiguration.class);
+      this.context.registerShutdownHook();
    }
 
    @Test

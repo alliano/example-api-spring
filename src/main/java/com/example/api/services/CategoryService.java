@@ -5,21 +5,38 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+// import com.example.api.configure.BeanAuditorAwareConf;
 import com.example.api.models.entities.Category;
 import com.example.api.models.repositories.CategoryRepository;
 
 @Service
 @Transactional
 public class CategoryService {
+
+   // @Autowired
+   // private BeanAuditorAwareConf auditorAwareConf;
    
    @Autowired
    private CategoryRepository categoryRepository;
 
    public Category save(Category entity){
-      return categoryRepository.save(entity);
+      //proses insert
+      if(entity.getId() == null){
+         entity.setUpdateBy(null);
+         entity.setCreatedDate(null);
+         return categoryRepository.save(entity);
+      }
+      else{
+         //proses update
+         Category curentCategory = categoryRepository.findById(entity.getId()).get();
+         entity.setCreatedBy(curentCategory.getCreatedBy());
+         entity.setCreatedDate(curentCategory.getCreatedDate());
+         return categoryRepository.save(entity);
+      }
    }
 
    public Category findById(long id){

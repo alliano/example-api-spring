@@ -8,9 +8,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * dengan meng extend class BaseEntity<T> maka class entity ini akan mewarisi beberapa field yang
+ * telah ditentukan di class BaseEntity<T> dan kelas ini akan memiliki field auditing 
+ * setelah ini kita perlu juga harus membuat class yang meng implementasi AuditorAware untuk
+ * mendapatkan user mana yang sedang login atau user mna yang melakukan aksi tertentu 
+ * source : com.example.api.configure.utils.AuditorAwareConfiguration.java
+ */
 @Entity
 @Table(name = "category")
-public class Category implements Serializable {
+public class Category extends BaseEntity<String> implements Serializable {
 
    private static final long serialVersionUID = 2L;
    

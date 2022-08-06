@@ -1,5 +1,7 @@
 package com.example.api.services;
 
+import java.util.List;
+
 import javax.management.RuntimeErrorException;
 import javax.transaction.Transactional;
 
@@ -48,10 +50,6 @@ public class AppUserService implements UserDetailsService{
          }else{
             try {
                user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-               System.out.println(user.getEmail());
-               System.out.println(user.getPassword());
-               System.out.println(user.getFullName());
-               System.out.println(user.getAppUserRole());
                return appUserRepository.save(user);
             } catch (Exception e) {
                System.out.println(e.getMessage());
@@ -59,6 +57,10 @@ public class AppUserService implements UserDetailsService{
             }
          }
       }
+   }
+
+   public List<AppUser> findAll(){
+      return appUserRepository.findAll();
    }
    
 }
